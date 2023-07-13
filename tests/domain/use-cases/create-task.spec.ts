@@ -1,26 +1,8 @@
-import { IGenerateUuid, ITaskRepository } from "@/domain/contracts";
-import { Task } from "@/domain/entity/task.entity";
 import { TaskStatus } from "@/domain/enums/task-status.enum";
 import { CreateTask } from "@/domain/use-cases/create-task";
-import { randomUUID } from "crypto";
+import { GenerateUuidStub } from "@/tests/stubles/generate-uuid-stub";
+import { TaskRepositoryStub } from "@/tests/stubles/task-repository-stub";
 import { describe, expect, test } from "vitest";
-
-class GenerateUuidStub implements IGenerateUuid {
-  make(): string {
-    return randomUUID();
-  }
-}
-
-class TaskRepositoryStub implements ITaskRepository {
-  async create(input: Task): Promise<void> {}
-  async update(id: string, input: Partial<Task>): Promise<void> {}
-  async findOne(id: string): Promise<Task> {
-    return {} as Task;
-  }
-  async findAll(): Promise<Task[]> {
-    return [] as Array<Task>;
-  }
-}
 
 describe("CreateTask", () => {
   test("should create a new task with the povided data", async () => {
